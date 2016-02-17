@@ -57,7 +57,7 @@ public class EarthquakeListFragment extends ListFragment {
 
     private static final String TAG = "EARTHQUAKE";
     private Handler handler = new Handler();
-    private void refreshEarthquake() {
+    public void refreshEarthquake() {
         URL url;
         try{
             String quakeFeed = getString(R.string.quake_feed);
@@ -139,7 +139,10 @@ public class EarthquakeListFragment extends ListFragment {
     }
 
     private void addNewQuake(Quake quake) {
-        earthquakes.add(quake);
+        EarthquakeActivity earthquakeActivity = (EarthquakeActivity)getActivity();
+        if (quake.getMagnitude() > earthquakeActivity.minimumMagnitude){
+            earthquakes.add(quake);
+        }
         aa.notifyDataSetChanged();
     }
 }
